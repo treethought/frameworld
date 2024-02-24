@@ -4,6 +4,12 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import Script from "next/script";
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    onSignInSuccess: any;
+  }
+}
+
 export default function SignInButton() {
   const [_, setUser] = useLocalStorage("user");
   const { setSignerUuid, setFid, fid } = useApp();
@@ -14,6 +20,7 @@ export default function SignInButton() {
     });
     setSignerUuid(data.signer_uuid);
     setFid(data.fid);
+    console.log("Sign in success for fid:", fid);
   };
 
   useEffect(() => {

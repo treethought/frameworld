@@ -8,7 +8,7 @@ export async function GET(
   try {
     console.log("GET /api/frames/feed");
     const resp = await client.fetchFramesOnlyFeed({
-      limit: 10,
+      limit: 50,
     });
     return NextResponse.json({ resp: resp }, { status: 200 });
   } catch (e) {

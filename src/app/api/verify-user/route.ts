@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ isVerifiedUser }, { status: 200 });
   } catch (err) {
-    console.log("/api/verify-user POST", err);
     if (isApiErrorResponse(err)) {
       return NextResponse.json(
         { ...err.response.data },

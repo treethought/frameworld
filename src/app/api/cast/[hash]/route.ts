@@ -13,7 +13,6 @@ export async function GET(
     if (v) {
       viewer = parseInt(v);
     }
-    console.log("CAST HASH: ", params.hash);
     console.log("GET /api/cast/[hash] params", params);
     const resp = await client.fetchBulkCasts([params.hash], {
       viewerFid: viewer,

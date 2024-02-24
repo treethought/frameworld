@@ -17,7 +17,6 @@ async function fetcher(key: string): Promise<CastsResponse> {
 }
 
 function useCast(hash: string, viewer: number | undefined) {
-  console.log("FETCH CAST: ", `/api/cast/${hash}?viewer=${viewer}`);
   const { data, error, isLoading } = useSWR<CastsResponse, Error>(
     `/api/cast/${hash}?viewer=${viewer}`,
     fetcher,
