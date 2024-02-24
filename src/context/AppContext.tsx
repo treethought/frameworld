@@ -33,7 +33,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [pfp, setPfp] = useState("");
   const [signerUUID, setSignerUUID] = useState("");
   const [fid, setFid] = useState<number | null>(null);
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
     "user",
     null,

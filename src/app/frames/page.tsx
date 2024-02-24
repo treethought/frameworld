@@ -38,7 +38,7 @@ function FramesFeed() {
         <div className="flex flex-wrap justify-evenly">
           {frames.casts.map((cast, i) => (
             <div key={i} className="p-8">
-              <Frame frame={cast} />
+              <Frame cast={cast} linkPage />
             </div>
           ))}
         </div>

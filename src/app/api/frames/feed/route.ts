@@ -4,10 +4,9 @@ import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { fid: string } },
 ) {
   try {
-    console.log("GET /api/frames/feed", params);
+    console.log("GET /api/frames/feed");
     const resp = await client.fetchFramesOnlyFeed({
       limit: 10,
     });

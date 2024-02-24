@@ -4,10 +4,11 @@ import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 import { User } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: { fid: string } },
 ) {
   try {
+    console.log("GET /api/user/[fid] params", params);
     const fid = parseInt(params.fid);
     const resp = await client.fetchBulkUsers([fid], {});
     if (resp.users.length === 0) {
