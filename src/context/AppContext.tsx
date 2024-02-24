@@ -20,8 +20,8 @@ interface IAppContext {
   setDisplayName: (name: string) => void;
   pfp: string;
   setPfp: (pfp: string) => void;
-  signerUUID: string;
-  setSignerUUID: (uuid: string) => void;
+  signerUuid: string;
+  setSignerUuid: (uuid: string) => void;
   fid: number | null;
   setFid: (fid: number | null) => void;
 }
@@ -31,7 +31,7 @@ const AppContext = createContext<IAppContext | null>(null);
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [displayName, setDisplayName] = useState("");
   const [pfp, setPfp] = useState("");
-  const [signerUUID, setSignerUUID] = useState("");
+  const [signerUuid, setSignerUuid] = useState("");
   const [fid, setFid] = useState<number | null>(null);
   // const searchParams = useSearchParams();
   const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
@@ -45,6 +45,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         const { data } = await axios.get<{ user: User }>(
           `/api/user/${user.fid}`,
         );
+        setFid(user.fid);
         setDisplayName(data.user.display_name);
         setPfp(data.user.pfp_url);
       } catch (error) {
@@ -67,16 +68,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const isUserloggedIn = useCallback(async () => {
     if (!user) {
-      const verifiedUser = await verifyUser(signerUUID, fid);
+      const verifiedUser = await verifyUser(signerUuid, fid);
       if (verifiedUser) {
-        setUser({ signerUUID, fid });
+        setUser({ signerUuid, fid });
+        setSignerUuid(signerUuid);
       } else {
         removeUser();
       }
     } else {
+      setSignerUuid(user.signerUuid);
       // set screen
     }
-  }, [user, signerUUID, fid, setUser, removeUser]);
+  }, [user, signerUuid, fid, setUser, removeUser]);
 
   useEffect(() => {
     isUserloggedIn();
@@ -90,12 +93,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setDisplayName,
       pfp,
       setPfp,
-      signerUUID,
-      setSignerUUID,
+      signerUuid,
+      setSignerUuid,
       fid,
       setFid,
     }),
-    [displayName, pfp, signerUUID, fid],
+    [displayName, pfp, signerUuid, fid],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

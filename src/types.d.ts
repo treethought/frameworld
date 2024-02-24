@@ -1,4 +1,4 @@
 export interface UserInfo {
-  signerUUID: string;
+  signerUuid: string;
   fid: number | null;
 }

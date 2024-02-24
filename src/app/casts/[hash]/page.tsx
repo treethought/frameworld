@@ -24,8 +24,6 @@ function useCast(hash: string, viewer: number | undefined) {
     { refreshInterval: 0 },
   );
 
-  console.log("RESP: ", data);
-
   return {
     resp: data,
     error,

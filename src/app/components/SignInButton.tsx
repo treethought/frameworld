@@ -6,13 +6,13 @@ import { useEffect } from "react";
 
 export default function SignInButton() {
   const [_, setUser] = useLocalStorage("user");
-  const { setSignerUUID, setFid, fid } = useApp();
+  const { setSignerUuid, setFid, fid } = useApp();
   const onSignInSuccess = (data: { signer_uuid: string; fid: number }) => {
     setUser({
       signerUuid: data.signer_uuid,
       fid: data.fid,
     });
-    setSignerUUID(data.signer_uuid);
+    setSignerUuid(data.signer_uuid);
     setFid(data.fid);
   };
 
