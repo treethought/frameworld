@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export default function SignInButton() {
   const [_, setUser] = useLocalStorage("user");
-  const { setSignerUUID, setFid } = useApp();
+  const { setSignerUUID, setFid, fid } = useApp();
   const onSignInSuccess = (data: { signer_uuid: string; fid: number }) => {
     setUser({
       signerUuid: data.signer_uuid,
@@ -23,6 +23,10 @@ export default function SignInButton() {
       delete window.onSignInSuccess;
     };
   }, []);
+
+  if (fid) {
+    return null;
+  }
 
   return (
     <>

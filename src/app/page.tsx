@@ -29,6 +29,7 @@ function HeroFrameCard() {
         <p>Your window into Frames</p>
         <div className="card-actions">
           <SignInButton />
+          <button className="btn btn-outline">Explore</button>
         </div>
       </div>
     </div>

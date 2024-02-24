@@ -1,6 +1,10 @@
-import Link from "next/link";
+"use client";
+import { useApp } from "@/context/AppContext";
+import ProfileAvatar from "./ProfileAvatar";
+import { useState } from "react";
 
 function Navbar() {
+  const { pfp } = useApp();
   return (
     <div className="navbar bg-base-100 text-primary">
       <div className="navbar-start">
@@ -58,6 +62,8 @@ function Navbar() {
           </svg>
         </button>
         <ThemeSelect />
+        {pfp ? <ProfileAvatar url={pfp} /> : null}
+
         <button className="btn btn-ghost btn-circle">
           <div className="indicator">
             <svg
