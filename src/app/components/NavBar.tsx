@@ -7,7 +7,7 @@ import Link from "next/link";
 function Navbar() {
   const { pfp } = useApp();
   return (
-    <div className="navbar bg-base-100 text-primary">
+    <div className="navbar bg-base-100 text-primary border-b-2 border-primary">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -90,6 +90,41 @@ function Navbar() {
   );
 }
 
+const themes = [
+  "light",
+  "dark",
+  "cupcake",
+  "bumblebee",
+  "emerald",
+  "corporate",
+  "synthwave",
+  "retro",
+  "cyberpunk",
+  "valentine",
+  "halloween",
+  "garden",
+  "forest",
+  "aqua",
+  "lofi",
+  "pastel",
+  "fantasy",
+  "wireframe",
+  "black",
+  "luxury",
+  "dracula",
+  "cmyk",
+  "autumn",
+  "business",
+  "acid",
+  "lemonade",
+  "night",
+  "coffee",
+  "winter",
+  "dim",
+  "nord",
+  "sunset",
+];
+
 function ThemeSelect() {
   return (
     <div className="dropdown mb-0">
@@ -108,53 +143,19 @@ function ThemeSelect() {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52"
+        className="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52 text-content"
       >
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Default"
-            value="default"
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Retro"
-            value="retro"
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Cyberpunk"
-            value="cyberpunk"
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Valentine"
-            value="valentine"
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Aqua"
-            value="aqua"
-          />
-        </li>
+        {themes.map((theme, i) => (
+          <li key={i}>
+            <input
+              type="radio"
+              name="theme-dropdown"
+              className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+              aria-label={theme}
+              value={theme}
+            />
+          </li>
+        ))}
       </ul>
     </div>
   );
