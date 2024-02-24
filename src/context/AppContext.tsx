@@ -48,6 +48,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setDisplayName(data.user.display_name);
         setPfp(data.user.pfp_url);
       } catch (error) {
+        console.error(error);
         const err = error as AxiosError<ErrorRes>;
         toast(err.response?.data?.message || "An error occurred", {
           type: "error",

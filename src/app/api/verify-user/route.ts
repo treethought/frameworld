@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
 
   let isVerifiedUser = false;
   try {
-    const { fid: userFid } = await client.lookupSigner(signerUuid);
-    if (fid === userFid) {
+    const data = await client.lookupSigner(signerUuid);
+    if (fid == data.fid) {
       isVerifiedUser = true;
     } else {
       isVerifiedUser = false;
