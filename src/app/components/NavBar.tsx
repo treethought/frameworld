@@ -2,6 +2,7 @@
 import { useApp } from "@/context/AppContext";
 import ProfileAvatar from "./ProfileAvatar";
 import { useState } from "react";
+import Link from "next/link";
 
 function Navbar() {
   const { pfp } = useApp();
@@ -42,7 +43,7 @@ function Navbar() {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">frameworld</a>
+        <Link href="/" className="btn btn-ghost text-xl">frameworld</Link>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">

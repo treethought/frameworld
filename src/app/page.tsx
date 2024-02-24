@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SignInButton from "./components/SignInButton";
 
 export default function Home() {
@@ -29,7 +30,9 @@ function HeroFrameCard() {
         <p>Your window into Frames</p>
         <div className="card-actions">
           <SignInButton />
-          <button className="btn btn-outline">Explore</button>
+          <button className="btn btn-outline">
+            <Link href="/frames">Explore</Link>
+          </button>
         </div>
       </div>
     </div>
