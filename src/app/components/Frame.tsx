@@ -10,14 +10,17 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import ProfileAvatar from "./ProfileAvatar";
+import { CommentIcon, LikeIcon, RespostIcon } from "./Util/Icons";
+import Render from "./Util/Render";
 
 type Props = {
   cast: CastWithInteractions;
   linkPage?: boolean;
+  details?: boolean;
 };
 
 function Frame(props: Props) {
-  const { signerUuid } = useApp();
+  const { userInfo } = useApp();
   const [currentFrame, setCurrentFrame] = useState<Frame | undefined>(
     props.cast?.frames?.[0],
   );
@@ -32,7 +35,7 @@ function Frame(props: Props) {
       frames_url: currentFrame?.frames_url!,
     };
     const resp = await client.postFrameAction(
-      signerUuid,
+      userInfo?.signerUuid!,
       props.cast.hash,
       action,
     ) as any;
@@ -41,8 +44,8 @@ function Frame(props: Props) {
   };
 
   return (
-    <div className="flex flex-wrap justify-between w-full mx-auto">
-      <div className="flex w-1/2">
+    <div className="flex flex-wrap justify-center w-full mx-auto">
+      <div className={"flex w-1/2" + props.details ? "w-1/2" : "w-full"}>
         <div className="card card-compact h-full text-content rounded-box border">
           <div className="card-body">
             <div className="flex flex-row justify-between">
@@ -86,9 +89,11 @@ function Frame(props: Props) {
           </div>
         </div>
       </div>
-      <div className="flex">
-        <CastDetails cast={props.cast} />
-      </div>
+      {props.details && (
+        <div className="flex">
+          <CastDetails cast={props.cast} />
+        </div>
+      )}
     </div>
   );
 }
@@ -97,31 +102,57 @@ type castDetailsProps = {
   cast: CastWithInteractions;
 };
 
-function CastDetails(props: { cast: CastWithInteractions }) {
+function CastDetails(props: castDetailsProps) {
   return (
-    <div>
-      <div className="card card-compact h-full text-primary rounded-box max-w-md border">
-        <h6 className="card-title text-md w-full whitespace-nowrap text-ellipsis overflow-hidden ">
-          <div className="flex items-center justify-between w-full px-4 pb-0">
-            <ProfileAvatar url={props.cast.author.pfp_url} />
-            <Link href={`/casts/${props.cast.hash}`} className="flex ">
-              <span className="prose cursor-pointer hover:text-accent-focus">
-                @{props.cast.author.username}
-              </span>
-            </Link>
-            <Link href={`/users/${props.cast.author.username}`}>
-              <span className=" text-sm">{props.cast.author.username}</span>
-            </Link>
-          </div>
-        </h6>
-        <div className="divider" />
-        <div className="card-body">
-          <article className="prose">
-            {props.cast.text}
-          </article>
+    <div className="card card-compact h-full text-primary rounded-box max-w-md border">
+      <h6 className="card-title text-md w-full whitespace-nowrap text-ellipsis overflow-hidden ">
+        <div className="flex items-center justify-between w-full px-4 pb-0">
+          <ProfileAvatar user={props.cast.author} />
+          <Link href={`/casts/${props.cast.hash}`} className="flex ">
+            <span className="prose cursor-pointer hover:text-accent-focus">
+              @{props.cast.author.username}
+            </span>
+          </Link>
+          <Link href={`/users/${props.cast.author.username}`}>
+            <span className=" text-sm">{props.cast.author.username}</span>
+          </Link>
         </div>
+      </h6>
+      <div className="divider" />
+      <div className="card-body">
+        <article className="prose">
+          <Render text={props.cast.text} />
+        </article>
+      </div>
+      <div className="card-actions justify-center">
+        <CastInteractions cast={props.cast} />
       </div>
     </div>
+  );
+}
+
+function CastInteractions(props: { cast: CastWithInteractions }) {
+  return (
+    <>
+      <button className="btn btn-ghost btn-sm gap-2 normal-case ">
+        <CommentIcon />
+        <span className="text-xs">
+          {JSON.stringify(props.cast.replies.count)}
+        </span>
+      </button>
+      <button className="btn btn-ghost btn-sm gap-2 normal-case ">
+        <RespostIcon />
+        <span className="text-xs">
+          {JSON.stringify(props.cast.reactions.recasts.length)}
+        </span>
+      </button>
+      <button className="btn btn-ghost btn-sm gap-2 normal-case ">
+        <LikeIcon />
+        <span className="text-xs">
+          {JSON.stringify(props.cast.reactions.likes.length)}
+        </span>
+      </button>
+    </>
   );
 }
 

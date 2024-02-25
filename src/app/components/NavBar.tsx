@@ -1,11 +1,10 @@
 "use client";
 import { useApp } from "@/context/AppContext";
 import ProfileAvatar from "./ProfileAvatar";
-import { useState } from "react";
 import Link from "next/link";
 
 function Navbar() {
-  const { pfp } = useApp();
+  const { user } = useApp();
   return (
     <div className="navbar bg-base-100 text-primary border-b-2 border-primary">
       <div className="navbar-start">
@@ -63,7 +62,8 @@ function Navbar() {
           </svg>
         </button>
         <ThemeSelect />
-        {pfp ? <ProfileAvatar url={pfp} /> : null}
+        {user?.display_name}
+        {user?.pfp_url ? <ProfileAvatar user={user} /> : null}
 
         <button className="btn btn-ghost btn-circle">
           <div className="indicator">

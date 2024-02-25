@@ -30,9 +30,11 @@ function HeroFrameCard() {
         <p>Your window into Frames</p>
         <div className="card-actions">
           <SignInButton />
-          <button className="btn btn-outline">
-            <Link href="/frames">Explore</Link>
-          </button>
+          <Link href="/frames" passHref>
+            <button className="btn btn-outline">
+              Explore
+            </button>
+          </Link>
         </div>
       </div>
     </div>

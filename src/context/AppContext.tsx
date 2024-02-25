@@ -1,7 +1,6 @@
 "use client";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { UserInfo } from "@/types";
-import { useSearchParams } from "next/navigation";
 import {
   createContext,
   useCallback,
@@ -16,38 +15,31 @@ import { toast } from "react-toastify";
 import { verifyUser } from "@/utils/helpers";
 
 interface IAppContext {
-  displayName: string;
-  setDisplayName: (name: string) => void;
-  pfp: string;
-  setPfp: (pfp: string) => void;
-  signerUuid: string;
-  setSignerUuid: (uuid: string) => void;
-  fid: number | null;
-  setFid: (fid: number | null) => void;
+  user: User | null;
+  userInfo: UserInfo | null;
+  setUserInfo: (userInfo: UserInfo) => void;
+  lookupUser: () => void;
 }
 
 const AppContext = createContext<IAppContext | null>(null);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [displayName, setDisplayName] = useState("");
-  const [pfp, setPfp] = useState("");
-  const [signerUuid, setSignerUuid] = useState("");
-  const [fid, setFid] = useState<number | null>(null);
-  // const searchParams = useSearchParams();
-  const [user, setUser, removeUser] = useLocalStorage<UserInfo | null>(
-    "user",
+  const [user, setUser] = useState<User | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [userStorage, setUserStorage, removeUserStorage] = useLocalStorage<
+    UserInfo | null
+  >(
+    "session",
     null,
   );
 
   const lookupUser = useCallback(async () => {
-    if (user && user.fid) {
+    if (userStorage && userStorage.fid) {
       try {
         const { data } = await axios.get<{ user: User }>(
-          `/api/user/${user.fid}`,
+          `/api/user/${userStorage.fid}`,
         );
-        setFid(user.fid);
-        setDisplayName(data.user.display_name);
-        setPfp(data.user.pfp_url);
+        setUser(data.user);
       } catch (error) {
         console.error(error);
         const err = error as AxiosError<ErrorRes>;
@@ -60,26 +52,33 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         });
       }
     }
-  }, [user]);
+  }, [userStorage]);
 
   useEffect(() => {
     lookupUser();
   }, [lookupUser]);
 
   const isUserloggedIn = useCallback(async () => {
-    if (!user) {
-      const verifiedUser = await verifyUser(signerUuid, fid);
+    if (!userInfo) {
+      console.log("No user session, verifying: ", userStorage);
+      const verifiedUser = await verifyUser(
+        userStorage?.signerUuid!,
+        userStorage?.fid!,
+      );
       if (verifiedUser) {
-        setUser({ signerUuid, fid });
-        setSignerUuid(signerUuid);
+        setUserInfo({
+          signerUuid: userStorage?.signerUuid!,
+          fid: userStorage?.fid!,
+        });
       } else {
-        removeUser();
+        console.log("User not verified");
+        removeUserStorage();
+        setUserInfo(null);
+        setUser(null);
       }
-    } else {
-      setSignerUuid(user.signerUuid);
       // set screen
     }
-  }, [user, signerUuid, fid, setUser, removeUser]);
+  }, [user, userInfo, userStorage, setUserInfo, setUserInfo, setUser, removeUserStorage]);
 
   useEffect(() => {
     isUserloggedIn();
@@ -87,18 +86,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const value: IAppContext | null = useMemo(
     () => ({
-      // screen,
-      // setScreen,
-      displayName,
-      setDisplayName,
-      pfp,
-      setPfp,
-      signerUuid,
-      setSignerUuid,
-      fid,
-      setFid,
+      user,
+      userInfo,
+      setUserInfo,
+      lookupUser,
     }),
-    [displayName, pfp, signerUuid, fid],
+    [user, userInfo],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

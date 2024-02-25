@@ -1,7 +1,6 @@
 "use client";
 import {
   CastsResponse,
-  CastWithInteractions,
 } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import useSWR from "swr";
 import axios from "axios";
@@ -32,8 +31,8 @@ function useCast(hash: string, viewer: number | undefined) {
 
 function FramesFeed() {
   const { hash } = useParams<{ hash: string }>();
-  const { fid } = useApp();
-  const { resp, error, isLoading } = useCast(hash, fid || undefined);
+  const { user } = useApp();
+  const { resp, error, isLoading } = useCast(hash, user?.fid || undefined);
 
   if (error) return <div>Failed to load</div>;
   if (!resp) return <div>No cast...</div>;
@@ -45,7 +44,7 @@ function FramesFeed() {
       <div className="flex">
         <div className="flex flex-wrap justify-center">
           <div className="p-8">
-            <Frame cast={cast} />
+            <Frame cast={cast} details />
           </div>
         </div>
       </div>
