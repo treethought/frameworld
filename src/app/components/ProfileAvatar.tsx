@@ -4,6 +4,7 @@ import Link from "next/link";
 type Props = {
   user: User;
   link?: boolean;
+  className?: string;
 };
 
 export default function ProfileAvatar(props: Props) {
@@ -12,7 +13,7 @@ export default function ProfileAvatar(props: Props) {
   }
   return (
     <div className="avatar">
-      <div className="w-12 rounded-full">
+      <div className={`w-12 rounded-full ${props.className}`}>
         {props.link
           ? (
             <Link href={`/users/${props.user.username}`} passHref>

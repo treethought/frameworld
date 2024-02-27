@@ -108,7 +108,7 @@ function CastDetails(props: castDetailsProps) {
       <h6 className="card-title text-md w-full whitespace-nowrap text-ellipsis overflow-hidden ">
         <div className="flex items-center justify-between w-full px-4 pb-0">
           <ProfileAvatar user={props.cast.author} />
-          <Link href={`/casts/${props.cast.hash}`} className="flex ">
+          <Link href={`/users/${props.cast.author.username}`} className="flex ">
             <span className="prose cursor-pointer hover:text-accent-focus">
               @{props.cast.author.username}
             </span>

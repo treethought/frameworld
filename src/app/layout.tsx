@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="garden">
+    <html lang="en" data-theme="sunset">
       <body className={inter.className}>
         <AppProvider>
           <Navbar />

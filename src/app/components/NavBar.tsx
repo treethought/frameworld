@@ -62,8 +62,14 @@ function Navbar() {
           </svg>
         </button>
         <ThemeSelect />
-        {user?.display_name}
-        {user?.pfp_url ? <ProfileAvatar user={user} /> : null}
+        <div className="flex items-center p-4">
+          <span className="px-2">
+            {user?.display_name}
+          </span>
+          {user?.pfp_url
+            ? <ProfileAvatar user={user} className="w-10" />
+            : null}
+        </div>
 
         <button className="btn btn-ghost btn-circle">
           <div className="indicator">
