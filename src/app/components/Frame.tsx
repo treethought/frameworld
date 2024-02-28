@@ -46,29 +46,31 @@ function Frame(props: Props) {
     <div className="card card-compact h-full text-content rounded-box border">
       <div className="card-body">
         <div className="flex flex-row justify-between">
-          <div className="card-title text-sm items-start w-full whitespace-nowrap text-ellipsis overflow-hidden ">
-            <div className="flex items-center justify-start w-full">
-              <ProfileAvatar user={props.cast.author} link />
-              <div className="flex flex-col px-2">
-                <Link
-                  href={`/users/${props.cast.author.username}`}
-                  passHref
-                >
-                  <span className="cursor-pointer max-w-2 hover:text-accent-focus">
-                    {props.cast.author.display_name}
-                  </span>
-                </Link>
-                <Link
-                  href={`/users/${props.cast.author.username}`}
-                  passHref
-                >
-                  <span className="text-sm font-normal ">
-                    @{props.cast.author.username}
-                  </span>
-                </Link>
+          {props.details && (
+            <div className="card-title text-sm items-start w-full whitespace-nowrap text-ellipsis overflow-hidden ">
+              <div className="flex items-center justify-start w-full">
+                <ProfileAvatar user={props.cast.author} link />
+                <div className="flex flex-col px-2">
+                  <Link
+                    href={`/users/${props.cast.author.username}`}
+                    passHref
+                  >
+                    <span className="cursor-pointer max-w-2 hover:text-accent-focus">
+                      {props.cast.author.display_name}
+                    </span>
+                  </Link>
+                  <Link
+                    href={`/users/${props.cast.author.username}`}
+                    passHref
+                  >
+                    <span className="text-sm font-normal ">
+                      @{props.cast.author.username}
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <figure className="h-full">
           <Link

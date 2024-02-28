@@ -29,13 +29,13 @@ function FramesFeed() {
   const { frames, error, isLoading } = useFramesFeed();
 
   return (
-    <main className="justify-center items-center mx-auto bg-base-100">
-      <div className="flex flex-col flex-wrap items-center justify-evenly p-4">
+    <main className="bg-base-100 w-full max-w-screen">
+      <div className="flex flex-col items-center w-full max-w-screen overflow-hidden">
         {isLoading
           ? Array.from(
             { length: 10 },
             (_, i) => (
-              <div key={i} className="flex skeleton sm:min-h-screen md:h-1/3">
+              <div key={i} className="flex skeleton bg-primary min-h-screen md:h-1/3">
                 <div className="flex flex-fit flex-wrap justify-center w-full mx-auto">
                   <div className="flex w-full">
                     <div className="card card-compact h-full text-content rounded-box border">
@@ -46,7 +46,7 @@ function FramesFeed() {
             ),
           )
           : frames.casts.map((cast, i) => (
-            <div key={i} className="flex sm:min-h-screen md:h-1/4 md:w-1/2 p-2">
+            <div key={i} className="flex sm:h-screen md:h-1/3 sm:w-1/2 p-2">
               <Cast cast={cast} frameonly linkPage />
             </div>
           ))}

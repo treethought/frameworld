@@ -109,6 +109,7 @@ function Navbar() {
         </div>
 
         <div className="navbar-end">
+          <ThemeSelect />
           <SearchButton />
           {user?.pfp_url && <ProfileAvatar user={user} className="w-10" link />}
           <NotificationIndicator />

@@ -1,12 +1,11 @@
 "use client";
-import {
-  CastsResponse,
-} from "@neynar/nodejs-sdk/build/neynar-api/v2";
+import { CastsResponse } from "@neynar/nodejs-sdk/build/neynar-api/v2";
 import useSWR from "swr";
 import axios from "axios";
 import { useApp } from "@/context/AppContext";
 import Frame from "@/app/components/Frame";
 import { useParams } from "next/navigation";
+import Cast from "@/app/components/Cast";
 
 async function fetcher(key: string): Promise<CastsResponse> {
   const { data } = await axios.get<{ resp: CastsResponse }>(
@@ -40,13 +39,9 @@ function FramesFeed() {
   const cast = resp?.result.casts[0];
 
   return (
-    <main className="justify-center mx-auto bg-base-100">
-      <div className="flex">
-        <div className="flex flex-wrap justify-center">
-          <div className="p-8">
-            <Frame cast={cast} details />
-          </div>
-        </div>
+    <main className="justify-center items-center mx-auto bg-base-100 w-full max-w-screen">
+      <div className="flex flex-col w-full max-w-screen overflow-hidden p-8">
+        <Cast cast={cast} />
       </div>
     </main>
   );
