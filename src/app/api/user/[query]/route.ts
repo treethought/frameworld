@@ -64,6 +64,5 @@ async function getByUsername(username: string, viewer: number) {
     console.log("User not matching");
     return NextResponse.json({ message: "User not found" }, { status: 404 });
   }
-  console.log("User found", u);
   return NextResponse.json({ user: u }, { status: 200 });
 }
