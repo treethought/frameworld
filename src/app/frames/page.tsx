@@ -33,14 +33,16 @@ function FramesFeed() {
       <div className="flex flex-col items-center w-full max-w-screen overflow-hidden">
         {isLoading
           ? Array.from(
-            { length: 10 },
+            { length: 1 },
             (_, i) => (
-              <div key={i} className="flex skeleton bg-primary min-h-screen md:h-1/3">
-                <div className="flex flex-fit flex-wrap justify-center w-full mx-auto">
-                  <div className="flex w-full">
-                    <div className="card card-compact h-full text-content rounded-box border">
-                    </div>
-                  </div>
+              <div
+                key={i}
+                className="flex sm:h-screen md:h-1/3 sm:w-1/2 p-2 skeleton border-red bg-primary h-96"
+              >
+                <div className="card card-compact h-full text-primary rounded-box max-w-md border h-96">
+                  <h6 className="card-title text-sm w-full whitespace-nowrap text-ellipsis overflow-hidden " />
+                  <div className="divider" />
+                  <div className="card-body skeleton" />
                 </div>
               </div>
             ),
