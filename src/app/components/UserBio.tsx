@@ -8,9 +8,9 @@ type Props = {
 
 function UserBio(props: Props) {
   return (
-    <div className="card card-bordered bg-neutral">
+    <div className="card card-bordered bg-neutral text-neutral-content">
       <div className="card-body space-y-0">
-        <div className="card-title text-base-content">
+        <div className="card-title text-neutral-content">
           <ProfileAvatar user={props.user} className="w-12 " />
           <div className="flex flex-col items-center space-y-1">
             <h2 className="card-title">{props.user.display_name}</h2>
@@ -21,7 +21,7 @@ function UserBio(props: Props) {
           <UserStats user={props.user} />
         </div>
         <div className="divider pt-0" />
-        <article className="prose text-center">
+        <article className="prose text-center text-neutral-content">
           <Render text={props.user.profile.bio.text} />
         </article>
       </div>
@@ -33,12 +33,16 @@ function UserStats(props: Props) {
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row space-x-1">
-        <span className="prose text-sm">Following:</span>
-        <span className="prose text-sm">{props.user.following_count}</span>
+        <span className="prose text-sm text-neutral-content">Following:</span>
+        <span className="prose text-sm text-neutral-content">
+          {props.user.following_count}
+        </span>
       </div>
       <div className="flex flex-row space-x-1">
-        <span className="prose text-sm">Followers:</span>
-        <span className="prose text-sm">{props.user.follower_count}</span>
+        <span className="prose text-sm text-neutral-content">Followers:</span>
+        <span className="prose text-sm text-neutral-content">
+          {props.user.follower_count}
+        </span>
       </div>
     </div>
   );

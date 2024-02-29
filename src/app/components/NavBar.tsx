@@ -208,7 +208,7 @@ function ThemeSelect() {
         <svg
           width="12px"
           height="12px"
-          className="h-2 w-2 fill-current opacity-60 inline-block"
+          className="h-2 w-2 fill-current opacity-60 hidden md:inline-block"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 2048 2048"
         >

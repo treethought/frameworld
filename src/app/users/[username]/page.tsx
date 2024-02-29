@@ -1,5 +1,6 @@
 "use client";
 import Cast from "@/app/components/Cast";
+import CastFeed from "@/app/components/CastFeed";
 import UserBio from "@/app/components/UserBio";
 import { useApp } from "@/context/AppContext";
 import { useUserCasts } from "@/hooks/feed";
@@ -23,16 +24,7 @@ function Profile() {
           <UserBio user={profileUser} />
         </div>
         <div className="divider" />
-        <div className="flex flex-col flex-fit items-center">
-          {userCasts?.casts.map((cast) => (
-            <div
-              key={cast.hash}
-              className="flex sm:h-screen md:h-1/3 sm:w-1/2 p-2"
-            >
-              <Cast cast={cast} />
-            </div>
-          ))}
-        </div>
+        <CastFeed casts={userCasts?.casts} />
       </div>
     </main>
   );

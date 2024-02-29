@@ -23,7 +23,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppProvider>
           <Navbar />
-          {children}
+          <main className="justify-center items-center mx-auto bg-base-100 w-full max-w-screen">
+            <div className="w-full max-w-screen overflow-hidden">
+              {children}
+            </div>
+          </main>
           <ToastContainer />
         </AppProvider>
       </body>
